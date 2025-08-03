@@ -1,0 +1,41 @@
+@use '../abstracts' as *;
+
+.heading-1 {
+    @include heading(
+            $heading-1-font-size,
+            $heading-1-color
+    );
+}
+
+.heading-2 {
+    @include heading(
+            $heading-2-font-size,
+            $heading-2-color
+    );
+}
+
+.heading-3 {
+    @include heading(
+            $heading-3-font-size,
+            $heading-3-color
+    );
+}
+
+.heading-4 {
+    @include heading(
+            $heading-4-font-size,
+            $heading-4-color
+    );
+}
+
+.heading-1, .heading-2, .heading-3, .heading-4 {
+    &.underline {
+        --border-style: solid;
+        --border-line: underline;
+        --border-color: var(--neutral-800);
+        text-decoration-style: var(--border-style);
+        text-decoration-line: var(--border-line);
+        text-decoration-color: var(--border-color);
+        text-decoration-thickness: 3px;
+    }
+}

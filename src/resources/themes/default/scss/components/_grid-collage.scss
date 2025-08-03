@@ -1,0 +1,71 @@
+.grid-collage {
+    $colors: (
+        four: #ffecc3,
+        six: #ccf0ee,
+        eight: #cdd7f0,
+        nine: #ffdce0
+    );
+
+    margin-inline: auto;
+    display: grid;
+    gap: 1rem;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-areas:
+    "..   ..  ..     ..     ..     three   three .."
+    "..   two two    two    four   three   three .."
+    "one  two two    two    five   five    six   .."
+    "..   two two    two    five   five    seven seven"
+    "nine ten eleven eleven twelve eight   seven seven"
+    "..   ..  eleven eleven ..     ..      ..    .."
+    ;
+
+    > img {
+        overflow: hidden;
+        border-radius: 0.5rem;
+    }
+
+    position: relative;
+
+    img {
+        width: 100%;
+        aspect-ratio: 1;
+        display: block;
+        object-fit: cover;
+        object-position: center top;
+        transition: all 0.5s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            z-index: 999;
+            scale: 1.1;
+        }
+    }
+
+    @for $i from 1 through 12 {
+        :nth-child(#{$i}) {
+            grid-area: #{nth(('one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'), $i)};
+        }
+    }
+
+    :nth-child(4) {
+        background-color: #ffecc3;
+        border-top-left-radius: 100%;
+    }
+
+    :nth-child(6) {
+        background-color: #ccf0ee;
+        border-top-right-radius: 100%;
+    }
+
+    :nth-child(8) {
+        background-color: #cdd7f0;
+        border-radius: 100%;
+    }
+
+    :nth-child(9) {
+        background-color: #ffdce0;
+        border-top-left-radius: 100%;
+    }
+
+}

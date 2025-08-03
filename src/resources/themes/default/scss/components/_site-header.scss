@@ -1,0 +1,220 @@
+@use "../abstracts" as *;
+
+.site-header {
+    --_animationStartsAfter: 10vh;
+    --_animationDistance: 150px;
+    --_marginInline: auto 0;
+    --_logoAfterAnimation: none;
+    --_borderRadius: 0;
+
+    color: $site-header-color;
+    background-color: $site-header-background-color;
+    padding: .5rem;
+
+    position: sticky;
+    z-index: 1000;
+    top: 0;
+    border-radius: var(--_borderRadius);
+    width: var(--_headerWidth, auto);
+
+    overflow: hidden;
+
+    &[aria-expanded=true] {
+        overflow: initial;
+    }
+
+    @supports (animation-timeline: view()) {
+        animation: stickyNav linear forwards;
+        top: -10rem;
+        backdrop-filter: blur(0.35rem);
+        animation-timeline: view();
+        animation-range-start: calc(100vh + var(--_animationStartsAfter));
+        animation-range-end: calc(
+            100vh + var(--_animationStartsAfter) + var(--_animationDistance)
+        );
+    }
+    display: flex;
+    align-items: var(--_siteHeaderAlignment, $site-header-alignment);
+    justify-content: $site-header-justification-small-screens;
+
+
+    &__logo {
+        display: var(--_logoDisplay, block);
+        font-weight: bold;
+        color: $navigation-color;
+        text-decoration: $navigation-link-text-decoration;
+
+        &:is(:hover, :focus) {
+            color: $navigation-color-hover;
+        }
+
+        img {
+            width: 60px;
+            height: auto;
+            margin-right: 1rem;
+        }
+    }
+
+
+    ul {
+        display: block;
+        justify-content: initial;
+        position: fixed;
+        top: 66px;
+        right: -300px;
+        bottom: 0;
+        width: 250px;
+        height: max-content;
+        padding: 1rem;
+        background-color: $site-header-background-color;
+        opacity: 0;
+        transition: opacity .5s;
+
+        &[aria-expanded=true] {
+            @supports (animation-timeline: view()) {
+                animation: stickyNavUl linear forwards;
+                backdrop-filter: blur(0.35rem);
+                animation-timeline: view();
+                animation-range-start: calc(100vh + var(--_animationStartsAfter));
+                animation-range-end: calc(
+                    100vh + var(--_animationStartsAfter) + var(--_animationDistance)
+                );
+            }
+
+            right: -0px;
+            opacity: 1;
+        }
+    }
+
+
+    .site-header__burger {
+        display: block;
+        overflow: hidden;
+        color: $site-header-color;
+        background-color: transparent;
+
+        &[aria-expanded=true] svg {
+            translate: 3px 0;
+            rotate: 0.125turn;
+
+            .line {
+                stroke-dasharray: 60 105 60 300;
+                stroke-dashoffset: -90;
+            }
+        }
+
+        svg {
+            transition: translate 1s, rotate 1s;
+
+            .line {
+                transition: 1s;
+                stroke-dasharray: 60 31 60 300;
+            }
+        }
+    }
+
+    @include mq(medium) {
+        --_marginInline: auto;
+
+        justify-content: var(--_siteHeaderAlignment, $site-header-justification-large-screens);
+        padding: $site-header-padding;
+        gap: $size-4;
+
+
+        ul {
+            display: flex;
+            position: relative;
+            width: auto;
+            height: auto;
+            opacity: 1;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            background-color: initial;
+            right: 0;
+            top: 0;
+        }
+
+
+        .site-header__burger {
+            display: none;
+        }
+    }
+
+}
+
+@keyframes stickyNav {
+    0%,
+    100% {
+        --_headerWidth: fit-content;
+        --_logoDisplay: var(--_logoAfterAnimation);
+        --_siteHeaderAlignment: center;
+        --_borderRadius: 100vw;
+        margin-inline: var(--_marginInline);
+    }
+
+    100% {
+        right: 1rem;
+        margin-block: 0;
+        top: 1rem;
+        box-shadow: inset 0 0 0.5rem hsl(0 0% 100% / 0.1),
+        0 0 0.75rem hsl(0 0% 0% / 0.3);
+    }
+}
+
+@keyframes stickyNavUl {
+    100% {
+        top: 76px;
+        border-radius: $border-radius-1;
+    }
+}
+
+:root:has(#theme-switcher:checked) {
+    .site-header {
+        color: $site-header-color-dark;
+        background-color: $site-header-background-dark-color;
+
+        &__logo {
+            color: $navigation-color-dark;
+
+            &:is(:hover, :focus) {
+                color: $navigation-color-dark-hover;
+            }
+        }
+
+        ul {
+            background-color: $site-header-background-dark-color;
+        }
+
+        .site-header__burger {
+            color: $site-header-color-dark;
+        }
+    }
+}
+
+@if ($enable-media-query-dark-mode) {
+    @media (prefers-color-scheme: dark) {
+        .site-header {
+            color: $site-header-color-dark;
+            background-color: $site-header-background-dark-color;
+
+            &__logo {
+                color: $navigation-color-dark;
+
+                &:is(:hover, :focus) {
+                    color: $navigation-color-dark-hover;
+                }
+            }
+
+            ul {
+                background-color: $site-header-background-dark-color;
+            }
+
+            .site-header__burger {
+                color: $site-header-color-dark;
+            }
+        }
+    }
+}

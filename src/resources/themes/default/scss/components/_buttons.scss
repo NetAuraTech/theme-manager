@@ -1,0 +1,180 @@
+@use "../abstracts" as *;
+
+.button {
+    display: inline-flex;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1;
+    font-family: $button-font-family;
+    font-size: $button-font-size;
+    text-transform: $button-text-transform;
+    font-weight: $button-font-weight;
+    padding: $button-padding;
+    border: $button-border;
+    border-radius: $button-border-radius;
+    transition: 275ms ease;
+
+    &:disabled {
+        cursor: default;
+        filter: grayscale(1);
+        opacity: .7;
+    }
+
+    &[data-type="accent"] {
+        background-color: $button-accent-background;
+        color: $button-accent-color;
+
+        &:is(:hover, :focus) {
+            background-color: $button-accent-background-hover;
+            color: $button-accent-color-hover;
+        }
+    }
+
+    &[data-type="transparent"] {
+        background-color: transparent;
+        color: inherit;
+
+        &:is(:hover, :focus) {
+            background-color: transparent;
+            color: inherit;
+        }
+    }
+
+    &[data-type="primary"] {
+        background-color: $button-primary-background;
+        color: $button-primary-color;
+
+        &:is(:hover, :focus) {
+            background-color: $button-primary-background-hover;
+            color: $button-primary-color-hover;
+        }
+    }
+
+    &[data-type="facebook"] {
+        background-color: $color-blue-500;
+        color: $button-primary-color;
+
+        &:is(:hover, :focus) {
+            background-color: $button-primary-background-hover;
+            color: $button-primary-color-hover;
+        }
+    }
+
+    &[data-type="google"] {
+        background-color: $color-red-400;
+        color: $color-neutral-100;
+
+        &:is(:hover, :focus) {
+            background-color: $button-primary-background-hover;
+            color: $button-primary-color-hover;
+        }
+    }
+
+    &[data-type="github"] {
+        background-color: $color-neutral-800;
+        color: $color-neutral-100;
+
+        &:is(:hover, :focus) {
+            background-color: $button-primary-background-hover;
+            color: $button-primary-color-hover;
+        }
+    }
+
+    &[data-type="link"] {
+        font-weight: initial;
+        font-family: $body-font-family;
+        font-size: $body-font-size;
+        line-height: initial;
+        background-color: transparent;
+        color: $link-color;
+        text-transform: initial;
+        padding: 0;
+
+        &:is(:hover, :focus) {
+            background-color: transparent;
+            color: $link-color-hover;
+        }
+    }
+
+    &[data-type="category"] {
+        font-weight: initial;
+        font-family: $body-font-family;
+        font-size: $body-font-size;
+        line-height: initial;
+        background-color: transparent;
+        color: $link-color;
+        text-transform: initial;
+        padding: 1rem;
+        justify-content: flex-start;
+        border: solid 1px transparent;
+
+        &:is(:hover, :focus) {
+            background-color: $color-primary-100;
+        }
+
+        &:is([aria-current]) {
+            border: solid 1px $button-outline-border-color;
+        }
+
+        span {
+            background-color: $color-primary-100;
+            color: $color-neutral-800;
+            border: solid 1px $button-outline-border-color;
+            border-radius: $button-border-radius;
+        }
+    }
+
+    &[data-type="paginator"] {
+        font-weight: normal;
+        background-color: transparent;
+        color: inherit;
+
+        &:is(:hover, :focus) {
+            background-color: $button-primary-background-hover;
+            color: $button-primary-color-hover;
+        }
+    }
+}
+
+:root:has(#theme-switcher:checked) {
+    .button {
+        &[data-type="accent"] {
+            background-color: $button-accent-background-dark;
+
+            &:is(:hover, :focus) {
+                background-color: $button-accent-background-dark-hover;
+            }
+        }
+
+        &[data-type="primary"] {
+            background-color: $button-primary-background-dark;
+
+            &:is(:hover, :focus) {
+                background-color: $button-primary-background-dark-hover;
+            }
+        }
+    }
+}
+
+@if ($enable-media-query-dark-mode) {
+    @media (prefers-color-scheme: dark) {
+        .button {
+            &[data-type="accent"] {
+                background-color: $button-accent-background-dark;
+
+                &:is(:hover, :focus) {
+                    background-color: $button-accent-background-dark-hover;
+                }
+            }
+
+            &[data-type="primary"] {
+                background-color: $button-primary-background-dark;
+
+                &:is(:hover, :focus) {
+                    background-color: $button-primary-background-dark-hover;
+                }
+            }
+        }
+    }
+}

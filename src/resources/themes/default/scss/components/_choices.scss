@@ -1,0 +1,73 @@
+@use "../abstracts" as *;
+
+// Base
+// =============
+.tomselected {
+    display: none !important;
+}
+
+.ts-control {
+    position: relative;
+    background: var(--neutral-100);
+    border: $form-input-border-default;
+    border-radius: $form-input-border-radius;
+    color: var(--neutral-800);
+    display: flex;
+    width: 100%;
+    outline: none;
+    min-height: 38px;
+    padding: .3rem;
+    gap: .5rem;
+
+    input {
+        border: none!important;
+    }
+
+    .item {
+        display: flex;
+        width: fit-content;
+        color: var(--primary-400);
+        background: var(--neutral-200);
+        border: $form-input-border-default;
+        border-radius: $form-input-border-radius;
+        padding: .5rem;
+        font-weight: bold;
+
+        a {
+            display: block;
+            margin-left: .5rem;
+            color: var(--red-300);
+            font-weight: bold;
+        }
+    }
+}
+
+// Dropdown
+// =============
+.ts-dropdown {
+    white-space: nowrap;
+    border: $form-input-border-default;
+    position: absolute;
+    z-index: 100;
+    min-width: 100%;
+    background-color: var(--neutral-100);
+    color: var(--neutral-800);
+
+    .option,
+    .create,
+    .optgroup-header,
+    .no-results {
+        padding: .5rem;
+        cursor: pointer;
+    }
+
+    .option {
+        &:hover,
+        .active {
+            background: var(--primary-400);
+            color: var(--neutral-100);
+        }
+    }
+}
+
+

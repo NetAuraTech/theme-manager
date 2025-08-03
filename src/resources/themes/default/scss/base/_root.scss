@@ -1,0 +1,54 @@
+@use "../abstracts" as *;
+
+html {
+    color-scheme: dark light;
+}
+
+:root {
+    @each $color, $shade-map in $active-theme {
+        @each $shade, $value in $shade-map {
+            --#{$color}-#{$shade}: #{$value};
+        }
+    }
+
+    @if ($enable-media-query-dark-mode) {
+        @media (prefers-color-scheme: dark) {
+            @each $color, $shade-map in $dark {
+                @each $shade, $value in $shade-map {
+                    --#{$color}-#{$shade}: #{$value};
+                }
+            }
+
+            *[style*="--background-color"] {
+                --background-color: var(--neutral-000) !important;
+            }
+        }
+    }
+
+    @each $screen-size, $size-map in $font-sizes {
+        @if $screen-size == small {
+            @each $size-name, $size-value in $size-map {
+                --fs-#{$size-name}: #{$size-value};
+            }
+        } @else {
+            @include mq($screen-size) {
+                @each $size-name, $size-value in $size-map {
+                    --fs-#{$size-name}: #{$size-value};
+                }
+            }
+        }
+    }
+}
+
+:root:has(#theme-switcher:checked) {
+    color-scheme: dark;
+    @each $color, $shade-map in $dark {
+        @each $shade, $value in $shade-map {
+            --#{$color}-#{$shade}: #{$value};
+        }
+    }
+
+    *[style*="--background-color"] {
+        --background-color: var(--neutral-000) !important;
+    }
+}

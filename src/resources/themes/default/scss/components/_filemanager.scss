@@ -1,0 +1,182 @@
+@use "../abstracts" as *;
+
+.filemanager {
+    position: relative;
+    height: 600px;
+    width: 900px;
+    max-width: 900px;
+    overflow: hidden;
+    transition: width .3s;
+
+    &.has-dragover {
+        .input-attachment {
+            opacity: .8;
+            pointer-events: auto;
+
+            .input-attachment__preview {
+                background-image: none!important;
+            }
+        }
+    }
+
+    &.card {
+        padding: 0;
+    }
+
+    &.grid-aside {
+        grid-template-columns: 278px 1fr;
+        gap: 0;
+    }
+
+    .input-attachment {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        z-index: 500;
+        pointer-events: none;
+        transition: background .3s;
+        border-radius: $border-radius-2!important;
+
+        .input-attachment__preview {
+            transition: background .3s;
+        }
+    }
+
+    aside {
+        overflow: hidden;
+        border-right: $form-input-border-default;
+        border-color: $color-neutral-100;
+
+        hr {
+            border: none;
+            height: 1px;
+            background-color: $color-neutral-100;
+        }
+
+        .folder {
+            color: $color-neutral-800;
+            font-weight: bold;
+            transition: background-color .3s;
+            width: initial;
+            border-radius: $button-border-radius;
+
+            svg {
+                color: $color-neutral-300;
+            }
+
+            span {
+                padding: 0 .5rem 0 .5rem;
+                display: flex;
+                background-color: $color-neutral-300;
+                color: $color-neutral-800;
+                align-items: center;
+                font-size: 12px;
+                border-radius: $button-border-radius;
+            }
+
+            &.is-deeper {
+                margin-left: 1.5rem;
+
+                .arrow {
+                    width: 8px;
+                    opacity: 0;
+                }
+            }
+
+            &.is-selected {
+                svg {
+                    color: $color-neutral-800;
+                }
+            }
+
+            &:hover {
+                background-color: $color-neutral-100;
+
+                svg {
+                    color: $color-neutral-800;
+                }
+
+                span {
+                    background-color: $color-primary-400;
+                    color: $color-neutral-100;
+                }
+            }
+        }
+    }
+
+    main {
+        overflow: auto;
+        .table {
+            .flow {
+                display: flow;
+                inline-size: 170px;
+            }
+
+            td {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            thead {
+                tr {
+                    th {
+                        &:first-child {
+                            width: 250px;
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                td {
+                    padding: 2rem 1rem 2rem 0;
+
+                    img {
+                        cursor: pointer;
+                        object-fit: cover;
+                        width: 250px;
+                        height: 100px;
+                        border-radius: $border-radius-1;
+                        box-shadow: $box-shadow-5;
+                    }
+
+                    &:last-child {
+                        padding: 2rem 0 2rem 1rem;
+
+                        svg {
+                            width: 16px;
+                            height: 16px;
+                            color: $color-neutral-600;
+                            transition: color .3s;
+                        }
+
+                        .button {
+                            &:first-child {
+                                margin-right: 1rem;
+                            }
+
+                            &.delete {
+                                &:hover {
+                                    svg {
+                                        color: $color-red-400;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .filemanager {
+        width: 100%;
+        &.grid-aside  {
+            grid-template-columns: 1fr;
+        }
+    }
+}

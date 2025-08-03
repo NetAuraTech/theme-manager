@@ -1,0 +1,75 @@
+@use "../abstracts" as *;
+
+.carrousel {
+    display: flex;
+    --items: 4;
+    --gap: 1rem;
+    gap: var(--gap);
+    overflow-x: auto;
+    padding: calc(var(--gap) * 0.5);
+    margin: calc(var(--gap) * -0.5);
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: calc(var(--gap) * 0.5);
+
+
+    > div {
+        min-width: calc((100% - (var(--items) - 1) * var(--gap)) / var(--items));
+        scroll-snap-align: start;
+    }
+}
+
+.carrousel__navigation {
+    transition: .3s;
+    position: absolute;
+    top: calc(50% - 25px);
+    cursor: pointer;
+    right: -35px;
+    width: 50px;
+    height: 50px;
+    background-color: $color-primary-400;
+    border-radius: 50%;
+    color: $color-neutral-100;
+
+    svg {
+        position: relative;
+        left: 14px;
+    }
+
+    &.prev {
+        left: -35px;
+        right: auto;
+        transform: scaleX(-1);
+    }
+
+    &:hover {
+        background-color: $color-accent-400;
+    }
+
+    &[hidden] {
+        opacity: 0;
+        pointer-events: none;
+
+    }
+}
+
+@media(max-width: 1000px) {
+    .carrousel__navigation {
+        display: none;
+    }
+
+    .carrousel {
+        scroll-padding-inline: 0;
+
+        > div {
+            scroll-snap-align: center;
+            min-width: 250px;
+        }
+    }
+}
+
+
+@media(min-width: 1000px) and (pointer: fine) {
+    .carrousel {
+        overflow: hidden;
+    }
+}

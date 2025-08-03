@@ -1,0 +1,67 @@
+@use "../abstracts" as *;
+
+.site-footer {
+    --background-color: #{$footer-background-color};
+    color: $footer-text-color;
+
+    .heading-1, .heading-2, .heading-3, .heading-4 {
+        color: $footer-heading-text-color;
+    }
+
+    a {
+        color: $footer-link-color;
+        text-decoration: $footer-link-text-decoration;
+        font-family: $footer-link-font-family;
+        letter-spacing: $letter-spacing-loose;
+        transition: .3s;
+
+        svg {
+            width: 25px;
+            height: 25px;
+        }
+
+        &:is(:hover, :focus, [aria-current=page]) {
+            color: $footer-link-color-hover;
+        }
+    }
+}
+
+:root:has(#theme-switcher:checked) {
+    .site-footer {
+        --background-color: #{$footer-background-color-dark};
+        color: $footer-text-color-dark;
+
+        .heading-1, .heading-2, .heading-3, .heading-4 {
+            color: $footer-heading-text-color-dark;
+        }
+
+        a {
+            color: $footer-link-color-dark;
+
+            &:is(:hover, :focus, [aria-current=page]) {
+                color: $footer-link-color-dark-hover;
+            }
+        }
+    }
+}
+
+@if ($enable-media-query-dark-mode) {
+    @media (prefers-color-scheme: dark) {
+        .site-footer {
+            --background-color: #{$footer-background-color-dark};
+            color: $footer-text-color-dark;
+
+            .heading-1, .heading-2, .heading-3, .heading-4 {
+                color: $footer-heading-text-color-dark;
+            }
+
+            a {
+                color: $footer-link-color-dark;
+
+                &:is(:hover, :focus, [aria-current=page]) {
+                    color: $footer-link-color-dark-hover;
+                }
+            }
+        }
+    }
+}

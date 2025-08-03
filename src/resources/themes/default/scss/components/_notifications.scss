@@ -1,0 +1,81 @@
+@use '../abstracts' as *;
+
+.notifications {
+    position: relative;
+
+    .badge {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: .75rem;
+        overflow: hidden;
+        background-color: $color-red-400;
+        color: $color-neutral-100;
+        text-align: center;
+        border-radius: 12px;
+        top: -5px;
+        right: -10px;
+        pointer-events: none;
+    }
+
+    .popup {
+        position: absolute;
+        left: calc(50% - 147px);
+        top: calc(100% + 8px);
+        width: 300px;
+        z-index: 100;
+        font-size: .9rem;
+        background-color: $body-background-color;
+        border-radius: $border-radius-1;
+        border: solid 1px $color-neutral-800;
+
+        &:before, &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -10px;
+            right: calc(50% - 6px);
+            width: 0;
+            height: 0;
+            z-index: 1;
+            border-bottom: 10px solid $body-background-color;
+            border-right: 10px solid #0000;
+            border-left: 10px solid #0000;
+        }
+
+        &:before {
+            top: -11px;
+            border-bottom-width: 11px;
+            border-left-width: 12px;
+            border-right-width: 12px;
+            right: calc(50% - 8px);
+            z-index: -1;
+            border-bottom-color: $color-neutral-800;
+        }
+
+        header {
+
+        }
+
+        .body {
+            max-height: 300px;
+            overflow: auto;
+        }
+
+        footer {
+            display: block;
+            text-align: center;
+
+            a {
+                color: $color-neutral-800;
+
+                &:hover {
+                    color: $color-primary-400;
+                }
+            }
+        }
+    }
+}

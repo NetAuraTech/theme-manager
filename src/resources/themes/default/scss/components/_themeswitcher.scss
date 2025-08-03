@@ -1,0 +1,40 @@
+@use "../abstracts" as *;
+
+.theme-switcher {
+    display: inline-block;
+
+    .icon {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        width: 16px;
+        height: 16px;
+        color: #ff9a00;
+        opacity: 1;
+        transition: .3s;
+    }
+
+    .icon-moon {
+        color: $color-neutral-000;
+    }
+
+    input:checked + label .icon {
+        transform: translateX(31px);
+    }
+
+    input:checked + label .icon-sun {
+        opacity: 0;
+    }
+
+    input:not(:checked) + label .icon-moon {
+        opacity: 0;
+    }
+
+    input:checked + label .switch {
+        background: $color-neutral-900;
+
+        &::before {
+            background: $color-primary-500 !important;
+        }
+    }
+}

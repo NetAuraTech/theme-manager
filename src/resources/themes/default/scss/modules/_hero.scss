@@ -1,0 +1,59 @@
+@use "../abstracts" as *;
+
+.hero {
+    background-image: linear-gradient(15deg, rgba(85, 91, 179, 0.6) 0%, rgba(255, 255, 255, 0) 44%), var(--background-image) !important;
+
+    .heading-1, .heading-2, p, .button {
+        color: $color-neutral-000;
+        transform: translateY(50px);
+        filter: blur(20px);
+        opacity: 0;
+        animation: showContent .5s 1s linear 1 forwards;
+    }
+
+    .heading-1 {
+        animation-delay: .4s;
+    }
+
+    .heading-2 {
+        animation-delay: .6s;
+    }
+
+    p {
+        animation-delay: .8s;
+    }
+
+    .button {
+        animation-delay: 1s;
+    }
+}
+
+@keyframes showContent {
+    to {
+        transform: translateY(0px);
+        filter: blur(0px);
+        opacity: 1;
+    }
+}
+
+:root:has(#theme-switcher:checked) {
+    .hero {
+        .heading-1, .heading-2, p {
+            color: $color-neutral-900;
+        }
+    }
+}
+
+@if ($enable-media-query-dark-mode) {
+    @media (prefers-color-scheme: dark) {
+        .lightbox {
+            .next, .prev, .close {
+                color: $color-neutral-900;
+
+                &:hover {
+                    color: $color-primary-600;
+                }
+            }
+        }
+    }
+}

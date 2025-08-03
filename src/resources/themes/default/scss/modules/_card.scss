@@ -1,0 +1,55 @@
+@use "../abstracts" as *;
+
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+}
+
+.bloc.card {
+    position: relative;
+    height: 100%;
+
+    img, svg {
+        transition: transform .9s ease 0s;
+    }
+
+    svg {
+        margin-inline: auto;
+    }
+
+    &:before, &:after {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        background-image: conic-gradient($color-neutral-800, $color-neutral-800);
+        border-radius: inherit;
+        z-index: -1;
+        transition: .3s;
+    }
+
+    &:hover {
+        &:before, &:after {
+            background-image: conic-gradient(from var(--angle), $color-primary-500, $color-accent-300, $color-primary-500, $color-accent-300, $color-primary-500);
+            animation: 3s spin linear infinite;
+        }
+
+        &:before {
+            filter: blur(1rem);
+            opacity: .5;
+        }
+
+        img, svg {
+            transform: rotateY(360deg);
+        }
+    }
+}
+
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }
+    to {
+        --angle: 360deg;
+    }
+}

@@ -1,0 +1,13 @@
+@use "../abstracts" as *;
+
+.section {
+    svg {
+        margin: auto;
+    }
+}
+
+.grid, .grid-auto-fit, .even-columns {
+    .section {
+        height: 100%;
+    }
+}
