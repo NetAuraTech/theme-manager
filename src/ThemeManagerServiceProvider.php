@@ -1,17 +1,17 @@
 <?php
 
-namespace NetAuraTech\ThemeManager;
+namespace Netauratech\ThemeManager;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
-use NetAuraTech\ThemeManager\Services\ThemeManager;
+use Netauratech\ThemeManager\Services\ThemeManager;
 
 class ThemeManagerServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
-        // On lie le service ThemeManager au conteneur.
-        // On lui donne le nom du thème par défaut pour l'instant.
+        // We bind the ThemeManager service to the container.
+        // We'll give it the default theme name for now.
         $this->app->bind(ThemeManager::class, function () {
             return new ThemeManager('default');
         });

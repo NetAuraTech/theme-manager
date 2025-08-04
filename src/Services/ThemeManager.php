@@ -1,6 +1,6 @@
 <?php
 
-namespace NetAuraTech\ThemeManager\Services;
+namespace Netauratech\ThemeManager\Services;
 
 class ThemeManager
 {
@@ -17,26 +17,25 @@ class ThemeManager
     }
 
     /**
-     * Détermine si le thème est un thème du package ou un thème uploadé.
+     * Determines whether the theme is a package theme or an uploaded theme.
      */
     public function isUploadedTheme(): bool
     {
-        // Pour cet exemple, on suppose que le thème "default-admin"
-        // est le seul thème qui fait partie du package.
+        //TODO: Fetch database to retrive current theme.
         return $this->activeTheme !== 'default';
     }
 
     /**
-     * Retourne le chemin complet vers le dossier du thème actif.
+     * Returns the full path to the active theme folder.
      */
     public function getThemePath(): string
     {
-        // Si c'est un thème uploadé, on utilise le chemin de stockage.
+        // If it is an uploaded theme, the storage path is used.
         if ($this->isUploadedTheme()) {
             return storage_path('app/themes/'.$this->getActiveTheme());
         }
 
-        // Sinon, on retourne le chemin des ressources du package.
+        // Otherwise, we return the package resource path.
         return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, dirname(__DIR__) . '/resources/themes/' . $this->getActiveTheme());
     }
 }

@@ -1,19 +1,19 @@
 {
   "name": "netauratech/theme-manager",
-  "description": "Gère les thèmes de l'administration du CMS.",
+  "description": "Manages CMS themes.",
   "require": {
     "php": "^8.1",
-    "netauratech/core-cms": "*"
+    "netauratech/core-cms": "dev-main"
   },
   "autoload": {
     "psr-4": {
-      "NetAuraTech\\ThemeManager\\": "src/"
+      "Netauratech\\ThemeManager\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "NetAuraTech\\ThemeManager\\ThemeManagerServiceProvider"
+        "Netauratech\\ThemeManager\\ThemeManagerServiceProvider"
       ]
     }
   },

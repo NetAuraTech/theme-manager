@@ -1,12 +1,12 @@
 <?php
 
-namespace NetAuraTech\ThemeManager\Http\Controllers;
+namespace Netauratech\ThemeManager\Http\Controllers;
 
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response as FacadeResponse;
-use NetAuraTech\ThemeManager\Services\ThemeManager;
+use Netauratech\ThemeManager\Services\ThemeManager;
 
 class AssetController extends Controller
 {
