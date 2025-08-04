@@ -2,18 +2,32 @@
 
 namespace Netauratech\ThemeManager\Services;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
+use Netauratech\CoreCms\Models\Option;
+
 class ThemeManager
 {
-    protected $activeTheme;
+    protected string $defaultTheme = 'default';
 
-    public function __construct(string $activeTheme)
-    {
-        $this->activeTheme = $activeTheme;
-    }
 
+    /**
+     * Retrieves the name of the active theme from the CMS options.
+     * The result is cached to improve performance
+     *
+     * @return string
+     */
     public function getActiveTheme(): string
     {
-        return $this->activeTheme;
+        return Cache::remember('theme_manager_active_theme_name', 60 * 60 * 24, function () {
+            if (!Schema::hasTable('options')) {
+                return $this->defaultTheme;
+            }
+
+            $themeOption = Option::where('key', 'theme')->first();
+
+            return $themeOption->value ?? $this->defaultTheme;
+        });
     }
 
     /**
@@ -21,8 +35,7 @@ class ThemeManager
      */
     public function isUploadedTheme(): bool
     {
-        //TODO: Fetch database to retrive current theme.
-        return $this->activeTheme !== 'default';
+        return $this->getActiveTheme() !== $this->defaultTheme;
     }
 
     /**
@@ -37,5 +50,16 @@ class ThemeManager
 
         // Otherwise, we return the package resource path.
         return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, dirname(__DIR__) . '/resources/themes/' . $this->getActiveTheme());
+    }
+
+    /**
+     * Clears the cache for the active theme.
+     * This method will be called when the theme is changed via the options.
+     *
+     * @return void
+     */
+    public function clearCache(): void
+    {
+        Cache::forget('theme_manager_active_theme_name');
     }
 }

@@ -4,16 +4,16 @@ namespace Netauratech\ThemeManager;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
+use Netauratech\CoreCms\Http\Events\OptionUpdated;
+use Netauratech\ThemeManager\Listeners\ClearThemeCache;
 use Netauratech\ThemeManager\Services\ThemeManager;
 
 class ThemeManagerServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // We bind the ThemeManager service to the container.
-        // We'll give it the default theme name for now.
         $this->app->bind(ThemeManager::class, function () {
-            return new ThemeManager('default');
+            return new ThemeManager();
         });
     }
 
@@ -24,6 +24,11 @@ class ThemeManagerServiceProvider extends ServiceProvider
     {
         $themeManager = $this->app->make(ThemeManager::class);
         $themePath = $themeManager->getThemePath();
+
+        $this->app->events->listen(
+            OptionUpdated::class,
+            ClearThemeCache::class
+        );
 
         $this->loadViewsFrom($themePath.'/views', 'theme');
 
