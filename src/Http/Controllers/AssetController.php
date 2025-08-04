@@ -16,7 +16,7 @@ class AssetController extends Controller
         $assetPath = "{$basePath}/{$path}";
 
         if (!File::exists($assetPath)) {
-            abort(404, __('cms.asset.notfound'));
+            abort(404, __('core-cms::core.asset.notfound'));
         }
 
         $extension = File::extension($assetPath);
