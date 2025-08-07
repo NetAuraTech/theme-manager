@@ -1,1 +1,1 @@
-<link rel="stylesheet" href="{{ route('themes.assets', ['path' => 'css/admin.css']) }}">
+<link rel="stylesheet" href="{{ route('assets.show', ['path' => 'css/admin.css']) }}">

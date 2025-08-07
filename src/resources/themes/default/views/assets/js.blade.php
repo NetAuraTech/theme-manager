@@ -1,0 +1,1 @@
+<script src="{{ route('assets.show', ['path' => 'js/app.js']) }}" type="module" defer=""></script>

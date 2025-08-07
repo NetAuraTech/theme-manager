@@ -6,6 +6,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 use Netauratech\CoreCms\Http\Events\OptionUpdated;
 use Netauratech\ThemeManager\Listeners\ClearThemeCache;
+use Netauratech\ThemeManager\Services\ThemeAssetSource;
 use Netauratech\ThemeManager\Services\ThemeManager;
 
 class ThemeManagerServiceProvider extends ServiceProvider
@@ -15,6 +16,8 @@ class ThemeManagerServiceProvider extends ServiceProvider
         $this->app->bind(ThemeManager::class, function () {
             return new ThemeManager();
         });
+
+        $this->app->tag(ThemeAssetSource::class, 'cms.asset.sources');
     }
 
     /**
