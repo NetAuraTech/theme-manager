@@ -1,16 +1,16 @@
-@extends('shared.blocks.layouts.layout')
+@extends('content-manager::shared.blocks.layouts.layout')
 
 @php
-    $bloc = $bloc ??  [];
-    $useContainer = $useContainer ?? $bloc['use-container'] ?? true;
+    $block = $block ??  [];
+    $useContainer = $useContainer ?? $block['use-container'] ?? true;
     $section = $section ?? 'section';
 
     $classes = ['hero'];
     $animations = [];
 
     $subTitleStyle = [];
-    if(key_exists('sub-title-color', $bloc) && $bloc['sub-title-color'] !== "transparent") {
-        $subTitleStyle[] = 'color: ' . $bloc['sub-title-color'] . ';';
+    if(key_exists('sub-title-color', $block) && $block['sub-title-color'] !== "transparent") {
+        $subTitleStyle[] = 'color: ' . $block['sub-title-color'] . ';';
     }
 @endphp
 
@@ -26,21 +26,21 @@
 @section('content')
     @if($useContainer)
         <div class="container {{ join(" ", $animations) }}"> @endif
-            @if(key_exists('title', $bloc))
+            @if(key_exists('title', $block))
                 <h1 class="heading-1 margin-block-end-6"
-                    >{{ $bloc['title'] }}</h1>
+                    >{{ $block['title'] }}</h1>
             @endif
             <div style="display: inline-flex">
-                @if(key_exists('sub-title', $bloc))
+                @if(key_exists('sub-title', $block))
                     <h2 class="heading-2 margin-block-end-4"
-                        @if(count($subTitleStyle) > 0)style="{{ implode(";", $subTitleStyle) }}"@endif>{{ $bloc['sub-title'] }}</h2>
+                        @if(count($subTitleStyle) > 0)style="{{ implode(";", $subTitleStyle) }}"@endif>{{ $block['sub-title'] }}</h2>
                 @endif
             </div>
-            <div class="margin-block-end-4 clr-neutral-100">{!! $bloc['content'] !!}</div>
-            @if(key_exists('ctas', $bloc))
+            <div class="margin-block-end-4 clr-neutral-100">{!! $block['content'] !!}</div>
+            @if(key_exists('ctas', $block))
                 <div class="flex-group align-items-center">
-                    @foreach($bloc['ctas'] as $cta)
-                        @include('core-cms::shared.blocks.components.cta', ['bloc' => $cta])
+                    @foreach($block['ctas'] as $cta)
+                        @include('core-cms::shared.blocks.components.cta', ['block' => $cta])
                     @endforeach
                 </div>
             @endif

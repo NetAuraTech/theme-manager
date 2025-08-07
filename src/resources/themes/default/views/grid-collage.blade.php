@@ -1,17 +1,17 @@
-@extends('shared.blocks.layouts.layout')
+@extends('content-manager::shared.blocks.layouts.layout')
 
 @php
-    $bloc = $bloc ??  [];
-    $useContainer = $useContainer ?? $bloc['use-container'] ?? true;
+    $block = $block ??  [];
+    $useContainer = $useContainer ?? $block['use-container'] ?? true;
     $section = $section ?? 'section';
 
     $classes = [''];
     $animations = [];
     $animate = $animate ?? true;
     if($animate) {
-        if(key_exists('animation', $bloc) && $bloc['animation'] !== "") {
+        if(key_exists('animation', $block) && $block['animation'] !== "") {
             $animations[] = 'animate';
-            $animations[] = $bloc['animation'];
+            $animations[] = $block['animation'];
         }
     }
 @endphp
@@ -32,14 +32,14 @@
                 $emptyPositions = [3, 5, 7, 8];
                 $collageItems = [];
                 $imageIndex = 0;
-                $totalItems = count($bloc['images']) + count($emptyPositions);
+                $totalItems = count($block['images']) + count($emptyPositions);
 
                 for ($i = 0; $i < 12; $i++) {
                     if (in_array($i, $emptyPositions)) {
                         $collageItems[] = "<div aria-hidden=\"true\"></div>";
-                    } elseif (isset($bloc['images'][$imageIndex])) {
-                        $url = image_url($bloc['images'][$imageIndex]['image']);
-                        $collageItems[] = "<a href=\"$url\">" . imageTag($bloc['images'][$imageIndex]['image'], key_exists('image-alt', $bloc['images'][$imageIndex]) ? $bloc['images'][$imageIndex]['image-alt'] : null, 482) ."</a>";
+                    } elseif (isset($block['images'][$imageIndex])) {
+                        $url = image_url($block['images'][$imageIndex]['image']);
+                        $collageItems[] = "<a href=\"$url\">" . imageTag($block['images'][$imageIndex]['image'], key_exists('image-alt', $block['images'][$imageIndex]) ? $block['images'][$imageIndex]['image-alt'] : null, 482) ."</a>";
                         $imageIndex++;
                     } else {
                         $collageItems[] = "<div aria-hidden=\"true\"></div>";

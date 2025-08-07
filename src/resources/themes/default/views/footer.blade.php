@@ -1,4 +1,4 @@
-@extends('shared.blocks.layouts.layout')
+@extends('content-manager::shared.blocks.layouts.layout')
 
 @php
     $classes = ['padding-block-5'];
