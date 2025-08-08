@@ -997,7 +997,7 @@ input:focus + label .switch {
   top: 0;
   width: 88px;
   height: 58px;
-  background: url("/images/captcha/piece.png");
+  background: url("/vendor/core-cms/captcha/piece.png");
   animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 .captcha.captcha__success .captcha__background {
