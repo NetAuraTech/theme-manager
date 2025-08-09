@@ -665,11 +665,11 @@ modal-dialog[hidden] {
   overflow: hidden;
   transition: width 0.3s;
 }
-.filemanager.has-dragover .input-attachment {
+.filemanager.has-dragover .input-media {
   opacity: 0.8;
   pointer-events: auto;
 }
-.filemanager.has-dragover .input-attachment .input-attachment__preview {
+.filemanager.has-dragover .input-media .input-media__preview {
   background-image: none !important;
 }
 .filemanager.card {
@@ -679,7 +679,7 @@ modal-dialog[hidden] {
   grid-template-columns: 278px 1fr;
   gap: 0;
 }
-.filemanager .input-attachment {
+.filemanager .input-media {
   position: absolute;
   top: 0;
   left: 0;
@@ -691,7 +691,7 @@ modal-dialog[hidden] {
   transition: background 0.3s;
   border-radius: 1rem !important;
 }
-.filemanager .input-attachment .input-attachment__preview {
+.filemanager .input-media .input-media__preview {
   transition: background 0.3s;
 }
 .filemanager aside {
@@ -1795,7 +1795,7 @@ a:is(:hover, :focus) {
   background-color: var(--background-color, var(--neutral-100));
   color: var(--text-color, currentColor);
 }
-.bloc.block__background-image {
+.block.block__background-image {
   background-image: var(--background-image);
   background-position: var(--background-image-position-x, center) var(--background-image-position-y, center);
   background-repeat: var(--background-image-repeat, no-repeat);
@@ -4418,17 +4418,17 @@ a:is(:hover, :focus) {
   initial-value: 132deg;
   inherits: false;
 }
-.bloc.card {
+.block.card {
   position: relative;
   height: 100%;
 }
-.bloc.card img, .bloc.card svg {
+.block.card img, .block.card svg {
   transition: transform 0.9s ease 0s;
 }
-.bloc.card svg {
+.block.card svg {
   margin-inline: auto;
 }
-.bloc.card:before, .bloc.card:after {
+.block.card:before, .block.card:after {
   content: "";
   position: absolute;
   inset: -2px;
@@ -4437,15 +4437,15 @@ a:is(:hover, :focus) {
   z-index: -1;
   transition: 0.3s;
 }
-.bloc.card:hover:before, .bloc.card:hover:after {
+.block.card:hover:before, .block.card:hover:after {
   background-image: conic-gradient(from var(--angle), var(--primary-500), var(--accent-300), var(--primary-500), var(--accent-300), var(--primary-500));
   animation: 3s spin linear infinite;
 }
-.bloc.card:hover:before {
+.block.card:hover:before {
   filter: blur(1rem);
   opacity: 0.5;
 }
-.bloc.card:hover img, .bloc.card:hover svg {
+.block.card:hover img, .block.card:hover svg {
   transform: rotateY(360deg);
 }
 

@@ -1,6 +1,6 @@
 @use "../abstracts" as *;
 
-.input-attachment {
+.input-media {
     cursor: pointer;
     position: relative;
     width: 100%;
@@ -31,7 +31,7 @@
     &.is-hovered {
         background-color: $color-neutral-800;
 
-        .input-attachment__preview {
+        .input-media__preview {
             opacity: 0.6;
         }
 
@@ -40,7 +40,7 @@
         }
     }
 
-    .input-attachment__preview {
+    .input-media__preview {
         position: absolute;
         z-index: 2;
         width: 100%;
@@ -52,7 +52,7 @@
 
 
 
-.input-attachment__loader {
+.input-media__loader {
     z-index: 3;
     position: absolute;
     top: 50%;
