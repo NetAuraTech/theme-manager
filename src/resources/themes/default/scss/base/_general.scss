@@ -51,7 +51,7 @@ a:is(:hover, :focus) {
     border-radius: 4px;
 }
 
-.bloc {
+.block {
     --background-color: inherit;
     background-color: var(--background-color, var(--neutral-100));
     color: var(--text-color, currentColor);
