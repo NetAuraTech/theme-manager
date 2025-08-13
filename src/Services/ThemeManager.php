@@ -19,7 +19,8 @@ class ThemeManager
      */
     public function getActiveTheme(): string
     {
-        return Cache::remember('theme_manager_active_theme_name', 60 * 60 * 24, function () {
+        $cache = Cache::store('database');
+        return $cache->rememberForever('theme_manager_active_theme_name', function () {
             if (!Schema::hasTable('options')) {
                 return $this->defaultTheme;
             }
