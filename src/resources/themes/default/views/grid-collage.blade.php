@@ -39,7 +39,7 @@
                         $collageItems[] = "<div aria-hidden=\"true\"></div>";
                     } elseif (isset($block['images'][$imageIndex])) {
                         $url = image_url($block['images'][$imageIndex]['image']);
-                        $collageItems[] = "<a href=\"$url\">" . imageTag($block['images'][$imageIndex]['image'], key_exists('image-alt', $block['images'][$imageIndex]) ? $block['images'][$imageIndex]['image-alt'] : null, 482) ."</a>";
+                        $collageItems[] = "<a href=\"$url\">" . image_tag($block['images'][$imageIndex]['image'], key_exists('image-alt', $block['images'][$imageIndex]) ? $block['images'][$imageIndex]['image-alt'] : null, 482) ."</a>";
                         $imageIndex++;
                     } else {
                         $collageItems[] = "<div aria-hidden=\"true\"></div>";
