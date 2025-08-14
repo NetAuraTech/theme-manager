@@ -2,7 +2,7 @@
 
 namespace Netauratech\ThemeManager\Listeners;
 
-use Netauratech\CoreCms\Http\Events\OptionUpdated;
+use Netauratech\CoreCms\Events\OptionUpdated;
 use Netauratech\ThemeManager\Services\ThemeManager;
 
 class ClearThemeCache
