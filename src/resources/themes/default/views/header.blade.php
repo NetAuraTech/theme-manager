@@ -15,10 +15,10 @@
 
 @section('content')
     <a href="{{ route('home') }}" class="site-header__logo fs-600">
-        {{ $options['sitename'] }}
+        {{ $options['site_name'] }}
     </a>
     <ul class="nav fs-600">
-        @foreach($bloc['links'] as $link)
+        @foreach($block['links'] as $link)
             @if($link['url'] !== '')
                 @php
                     if($link['type'] == 'internal') {
@@ -31,7 +31,7 @@
                     }
 
                 @endphp
-                <li><a href="{{ $path }}" {{ menu_active($menu, $path) }}>{{ $label }}</a></li>
+                <li><a href="{{ $path }}" {{ menu_active($path) }}>{{ $label }}</a></li>
             @endif
         @endforeach
     </ul>
