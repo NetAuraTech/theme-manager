@@ -22,11 +22,13 @@ class ThemeAssetSource implements AssetSourceInterface
      * Attempts to resolve an asset from the active theme's public folder.
      *
      * @param string $path The relative path of the asset.
+     * @param string|null $theme
+     * @return Response|BinaryFileResponse|null
      */
-    public function resolve(string $path): Response|BinaryFileResponse|null
+    public function resolve(string $path, ?string $theme = null): Response|BinaryFileResponse|null
     {
         try {
-            $basePath = $this->themeManager->getThemePath();
+            $basePath = $this->themeManager->getThemePath($theme);
             $assetPath = "{$basePath}/{$path}";
 
             if (!File::exists($assetPath)) {
@@ -44,6 +46,10 @@ class ThemeAssetSource implements AssetSourceInterface
                 'svg' => 'image/svg+xml',
                 default => 'text/plain',
             };
+
+            if (ob_get_level() > 0) {
+                ob_clean();
+            }
 
             return FacadeResponse::make(File::get($assetPath), 200, [
                 'Content-Type' => $mimeType,
