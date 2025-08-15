@@ -60,7 +60,7 @@ class ThemeController extends AdminController
                 $OnlyFileName = str_replace('../', '', $zip->getNameIndex($i));
                 $FullFileName = $zip->statIndex($i);
                 if (!($FullFileName['name'][strlen($FullFileName['name']) - 1] == '/')) {
-                    if (preg_match('#\.(jpg|jpeg|gif|png|svg|lottie|css|scss|php|js|woff|ttf)$#i', $OnlyFileName)) {
+                    if (preg_match('#\.(jpg|jpeg|gif|png|svg|lottie|css|scss|php|js|woff|woff2|ttf)$#i', $OnlyFileName)) {
                         $dirname = pathinfo($FullFileName['name'], PATHINFO_DIRNAME);
                         $basename = pathinfo($FullFileName['name'], PATHINFO_BASENAME);
                         $name = $dirname . '/' . $basename;
