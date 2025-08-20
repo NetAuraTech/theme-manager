@@ -42,9 +42,11 @@ class ThemeManagerServiceProvider extends ServiceProvider
         $this->loadViewsFrom($themePath.'/views', 'theme');
 
         $assetManager->registerTranslationPath('theme-manager', __DIR__.'/lang');
+        $assetManager->registerTranslationPath('theme', $themePath.'/lang');
 
         // Lang
         $this->loadTranslationsFrom(__DIR__.'/lang', 'theme-manager');
+        $this->loadTranslationsFrom($themePath.'/lang', 'theme');
         LangLoaded::dispatch('theme-manager');
 
         // Allows you to publish translations of the package
