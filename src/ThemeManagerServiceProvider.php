@@ -3,24 +3,44 @@
 namespace Netauratech\ThemeManager;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
 use Netauratech\CoreCms\Events\LangLoaded;
 use Netauratech\CoreCms\Events\OptionUpdated;
+use Netauratech\CoreCms\Services\AbstractCmsServiceProvider;
 use Netauratech\CoreCms\Services\Admin\MenuManager;
 use Netauratech\CoreCms\Services\AssetManager;
 use Netauratech\ThemeManager\Listeners\ClearThemeCache;
 use Netauratech\ThemeManager\Services\ThemeAssetSource;
 use Netauratech\ThemeManager\Services\ThemeManager;
 
-class ThemeManagerServiceProvider extends ServiceProvider
+class ThemeManagerServiceProvider extends AbstractCmsServiceProvider
 {
+    protected function getPackageName(): string
+    {
+        return 'theme-manager';
+    }
+
+    protected function getBootstrapConfig(): array
+    {
+        $config = parent::getBootstrapConfig();
+
+        $config['views'] = false;
+        $config['assets'] = false;
+        $config['migrations'] = false;
+        $config['seeders'] = false;
+        $config['routes']['web'] = false;
+        $config['routes']['api'] = false;
+        $config['routes']['auth'] = false;
+        $config['publishes']['migrations'] = false;
+        $config['publishes']['seeders'] = false;
+        $config['publishes']['config'] = false;
+        $config['publishes']['assets'] = false;
+
+        return $config;
+    }
+
     public function register(): void
     {
-        $this->app->bind(ThemeManager::class, function () {
-            return new ThemeManager();
-        });
-
+        $this->app->bind(ThemeManager::class, ThemeManager::class);
         $this->app->tag(ThemeAssetSource::class, 'cms.asset.sources');
     }
 
@@ -37,31 +57,13 @@ class ThemeManagerServiceProvider extends ServiceProvider
             ClearThemeCache::class
         );
 
-        // Load all views
         $this->loadViewsFrom(__DIR__.'/resources/views', 'theme');
         $this->loadViewsFrom($themePath.'/views', 'theme');
 
-        $assetManager->registerTranslationPath('theme-manager', __DIR__.'/lang');
         $assetManager->registerTranslationPath('theme', $themePath.'/lang');
-
-        // Lang
-        $this->loadTranslationsFrom(__DIR__.'/lang', 'theme-manager');
         $this->loadTranslationsFrom($themePath.'/lang', 'theme');
-        LangLoaded::dispatch('theme-manager');
 
-        // Allows you to publish translations of the package
-        $this->publishes([
-            __DIR__.'/lang' => $this->app->langPath('vendor/theme-manager'),
-        ], 'theme-manager-translations');
-
-        // Routes admin
-        Route::group([
-            'middleware' => config('core-cms.admin.middleware'),
-            'prefix' => config('core-cms.admin.prefix'),
-            'as' => config('core-cms.admin.name'),
-        ], function () {
-            $this->loadRoutesFrom(__DIR__.'/routes/admin.php');
-        });
+        $this->bootstrapPackage();
 
         $menuManager->registerMenuItem('theme', [
             'label' => trans_choice('theme-manager::admin.theme.value', 0),
