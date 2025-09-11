@@ -59,7 +59,7 @@ The service provider is automatically registered. If manual registration is need
 Publish translation files (optional):
 
 ```bash
-php artisan vendor:publish --tag=theme-manager-translations
+php artisan vendor:publish --tag=core-cms-translations
 ```
 
 ### 3. Environment Setup
