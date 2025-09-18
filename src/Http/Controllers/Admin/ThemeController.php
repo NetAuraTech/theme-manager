@@ -8,9 +8,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Netauratech\CoreCms\Contracts\CacheServiceInterface;
 use Netauratech\CoreCms\Http\Controllers\AdminController;
 use Netauratech\CoreCms\Models\Option;
-use Netauratech\CoreCms\Services\CacheService;
 use Netauratech\ThemeManager\Jobs\CompileTheme;
 use Netauratech\ThemeManager\Jobs\MinifyTheme;
 use Netauratech\ThemeManager\Services\ThemeManager;
@@ -80,10 +80,10 @@ class ThemeController extends AdminController
      * Sets a given theme as the active theme and clears the cache.
      *
      * @param string $theme
-     * @param CacheService $cache
+     * @param CacheServiceInterface $cache
      * @return RedirectResponse
      */
-    public function define(string $theme, CacheService $cache): RedirectResponse
+    public function define(string $theme, CacheServiceInterface $cache): RedirectResponse
     {
         Option::where('key', 'theme')->update(['value' => $theme]);
 
@@ -96,10 +96,10 @@ class ThemeController extends AdminController
      * Compiles and minifies the specified theme.
      *
      * @param string $theme
-     * @param CacheService $cache
+     * @param CacheServiceInterface $cache
      * @return RedirectResponse
      */
-    public function compile(string $theme, CacheService $cache): RedirectResponse
+    public function compile(string $theme, CacheServiceInterface $cache): RedirectResponse
     {
         $path = $this->themeManager->getThemePath($theme);
         CompileTheme::dispatch($path);
