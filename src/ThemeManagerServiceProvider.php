@@ -40,7 +40,7 @@ class ThemeManagerServiceProvider extends AbstractCmsServiceProvider
 
     public function register(): void
     {
-        $this->app->bind(ThemeManager::class, ThemeManager::class);
+        $this->app->singleton(ThemeManager::class);
         $this->app->tag(ThemeAssetSource::class, 'cms.asset.sources');
     }
 
