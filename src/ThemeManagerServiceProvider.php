@@ -3,6 +3,7 @@
 namespace Netauratech\ThemeManager;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Support\Facades\Schema;
 use Netauratech\CoreCms\Events\LangLoaded;
 use Netauratech\CoreCms\Events\OptionUpdated;
 use Netauratech\CoreCms\Services\AbstractCmsServiceProvider;
@@ -49,19 +50,21 @@ class ThemeManagerServiceProvider extends AbstractCmsServiceProvider
      */
     public function boot(MenuManager $menuManager, AssetManager $assetManager): void
     {
-        $themeManager = $this->app->make(ThemeManager::class);
-        $themePath = $themeManager->getThemePath();
-
         $this->app->events->listen(
             OptionUpdated::class,
             ClearThemeCache::class
         );
 
         $this->loadViewsFrom(__DIR__.'/resources/views', 'theme');
-        $this->loadViewsFrom($themePath.'/views', 'theme');
 
-        $assetManager->registerTranslationPath('theme', $themePath.'/lang');
-        $this->loadTranslationsFrom($themePath.'/lang', 'theme');
+        if (Schema::hasTable('options') && Schema::hasTable('cache')){
+            $themeManager = $this->app->make(ThemeManager::class);
+            $themePath = $themeManager->getThemePath();
+
+            $this->loadViewsFrom($themePath.'/views', 'theme');
+            $assetManager->registerTranslationPath('theme', $themePath.'/lang');
+            $this->loadTranslationsFrom($themePath.'/lang', 'theme');
+        }
 
         $this->bootstrapPackage();
 
