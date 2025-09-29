@@ -40,7 +40,7 @@
             @if(key_exists('ctas', $block))
                 <div class="flex-group align-items-center">
                     @foreach($block['ctas'] as $cta)
-                        @include('core-cms::shared.blocks.components.cta', ['block' => $cta])
+                        @includeIf('content-manager::shared.blocks.components.cta', ['block' => $cta])
                     @endforeach
                 </div>
             @endif
