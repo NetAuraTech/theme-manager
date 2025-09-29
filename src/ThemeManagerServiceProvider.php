@@ -4,11 +4,13 @@ namespace Netauratech\ThemeManager;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Schema;
+use Netauratech\CoreCms\Contracts\ThemeMiddlewareInterface;
 use Netauratech\CoreCms\Events\LangLoaded;
 use Netauratech\CoreCms\Events\OptionUpdated;
 use Netauratech\CoreCms\Services\AbstractCmsServiceProvider;
 use Netauratech\CoreCms\Services\Admin\MenuManager;
 use Netauratech\CoreCms\Services\AssetManager;
+use Netauratech\ThemeManager\Http\Middlewares\ThemeMiddleware;
 use Netauratech\ThemeManager\Listeners\ClearThemeCache;
 use Netauratech\ThemeManager\Services\ThemeAssetSource;
 use Netauratech\ThemeManager\Services\ThemeManager;
@@ -43,6 +45,7 @@ class ThemeManagerServiceProvider extends AbstractCmsServiceProvider
     {
         $this->app->singleton(ThemeManager::class);
         $this->app->tag(ThemeAssetSource::class, 'cms.asset.sources');
+        $this->app->bind(ThemeMiddlewareInterface::class, ThemeMiddleware::class);
     }
 
     /**
@@ -56,15 +59,6 @@ class ThemeManagerServiceProvider extends AbstractCmsServiceProvider
         );
 
         $this->loadViewsFrom(__DIR__.'/resources/views', 'theme');
-
-        if (Schema::hasTable('options') && Schema::hasTable('cache')){
-            $themeManager = $this->app->make(ThemeManager::class);
-            $themePath = $themeManager->getThemePath();
-
-            $this->loadViewsFrom($themePath.'/views', 'theme');
-            $assetManager->registerTranslationPath('theme', $themePath.'/lang');
-            $this->loadTranslationsFrom($themePath.'/lang', 'theme');
-        }
 
         $this->bootstrapPackage();
 
