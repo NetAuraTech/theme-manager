@@ -23,7 +23,7 @@ editor.initializeTheme = function(options) {
                 }),
                 fields.Repeater('ctas', {
                     addLabel: translate('core-cms.admin.add'),
-                    fields: [...editor.links()],
+                    fields: [editor.ctas()],
                     label: translate('content-manager.admin.editor.sidebar.tabs.ctas')
                 }),
             ]
@@ -37,30 +37,8 @@ editor.initializeTheme = function(options) {
             fields: [
                 fields.Repeater('links', {
                     addLabel: translate('core-cms.admin.add'),
-                    fields: [...editor.links()],
+                    fields: [editor.links()],
                     label: translate('content-manager.admin.editor.sidebar.tabs.links')
-                }),
-            ]
-        },
-        {
-            _id: 'card',
-            label: translate('theme.admin.editor.sidebar.tabs.card'),
-            title: translate('theme.admin.editor.sidebar.tabs.card'),
-            category: translate('content-manager.admin.editor.category.template'),
-            canEditAppearance: true,
-            fields: [
-                ...editor.mediaField('media'),
-                editor.titleField('title', translate('content-manager.admin.editor.sidebar.tabs.title.value')),
-                fields.HtmlText('content', {
-                    label: translate('content-manager.admin.editor.sidebar.tabs.content'),
-                    multiline: true,
-                    colors: Object.values(editor.colors()),
-                    canAnimate: true
-                }),
-                fields.Repeater('ctas', {
-                    addLabel: translate('core-cms.admin.add'),
-                    fields: [...editor.links()],
-                    label: translate('content-manager.admin.editor.sidebar.tabs.ctas')
                 }),
             ]
         },
