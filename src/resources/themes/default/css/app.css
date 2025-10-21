@@ -660,8 +660,8 @@ modal-dialog[hidden] {
 .filemanager {
   position: relative;
   height: 600px;
-  width: 900px;
-  max-width: 900px;
+  width: 925px;
+  max-width: 925px;
   overflow: hidden;
   transition: width 0.3s;
 }
@@ -777,7 +777,7 @@ modal-dialog[hidden] {
   color: var(--neutral-600);
   transition: color 0.3s;
 }
-.filemanager main .table tbody td:last-child .button:first-child {
+.filemanager main .table tbody td:last-child .button:not(:last-child) {
   margin-right: 1rem;
 }
 .filemanager main .table tbody td:last-child .button.delete:hover svg {

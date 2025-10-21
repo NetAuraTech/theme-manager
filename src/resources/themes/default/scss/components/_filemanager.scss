@@ -3,8 +3,8 @@
 .filemanager {
     position: relative;
     height: 600px;
-    width: 900px;
-    max-width: 900px;
+    width: 925px;
+    max-width: 925px;
     overflow: hidden;
     transition: width .3s;
 
@@ -153,7 +153,7 @@
                         }
 
                         .button {
-                            &:first-child {
+                            &:not(:last-child) {
                                 margin-right: 1rem;
                             }
 
