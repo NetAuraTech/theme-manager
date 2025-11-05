@@ -1,4 +1,4 @@
-@extends('content-manager::shared.blocks.layouts.layout')
+@extends('core-cms::shared.blocks.layouts.layout')
 
 @php
     $classes = ['padding-block-5'];
@@ -17,7 +17,7 @@
     <div class="container">
         <div class="even-columns margin-block-end-4">
             <div class="footer__info-item">
-                <h2 class="fs-700 fw-blod margin-block-end-4">Sitemap</h2>
+                <h2 class="fs-700 fw-bold margin-block-end-4">Sitemap</h2>
                 @if(key_exists('links', $bloc))
                     <ul>
                         @foreach($bloc['links'] as $link)

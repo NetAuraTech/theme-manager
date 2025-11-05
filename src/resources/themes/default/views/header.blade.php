@@ -1,4 +1,4 @@
-@extends('content-manager::shared.blocks.layouts.layout')
+@extends('core-cms::shared.blocks.layouts.layout')
 
 @php
     $classes = [];
