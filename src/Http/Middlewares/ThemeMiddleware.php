@@ -3,6 +3,7 @@
 namespace Netauratech\ThemeManager\Http\Middlewares;
 
 use Closure;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Netauratech\CoreCms\Contracts\ThemeMiddlewareInterface;
 use Netauratech\CoreCms\Services\AssetManager;
@@ -21,7 +22,11 @@ class ThemeMiddleware implements ThemeMiddlewareInterface
 
     public function handle($request, Closure $next)
     {
-        if (Schema::hasTable('options') && Schema::hasTable('cache')) {
+        $hasOptionsTable = Cache::rememberForever('schema_has_options', function () {
+            return Schema::hasTable('options');
+        });
+
+        if ($hasOptionsTable) {
             $themePath = $this->themeManager->getThemePath();
 
             app('view')->prependNamespace('theme', $themePath.'/views');

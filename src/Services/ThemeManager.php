@@ -24,7 +24,7 @@ class ThemeManager
             return $theme;
         }
 
-        $cache = Cache::store('database');
+        $cache = Cache::getFacadeRoot();
         return $cache->rememberForever('theme_manager_active_theme_name', function () {
             if (!Schema::hasTable('options')) {
                 return $this->defaultTheme;
